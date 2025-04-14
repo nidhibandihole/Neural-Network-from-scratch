@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # Load trained model weights
 with open("model.pkl", "rb") as f:  
-    W1, b1, W2, b2 = pickle.load(f)  
+    W1, b1, W2, b2, W3, b3 = pickle.load(f)  
 
 
 
@@ -24,21 +24,24 @@ def softmax(Z):
 
 
 # Forward propagation
-def forward_prop(W1, b1, W2, b2, X):
+def forward_prop(W1, b1, W2, b2, W3, b3, X):
     Z1 = W1.dot(X) + b1
     A1 = ReLU(Z1)
     Z2 = W2.dot(A1) + b2
     A2 = softmax(Z2)
-    return A2
+    Z3 = W3.dot(A2) + b3
+    A3 = ReLU(Z3)
+
+    return A3
 
 def predict(X):
     
 
-    A2 = forward_prop(W1, b1, W2, b2, X)
+    A3 = forward_prop(W1, b1, W2, b2,W3,b3, X)
     
    
 
-    return np.argmax(A2, axis=0)
+    return np.argmax(A3, axis=0)
 
 
 
