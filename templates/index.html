@@ -7,12 +7,29 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #fafafa;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 40px 20px;
+            gap: 40px;
+            max-width: 900px;
+        }
+        .left-panel {
             text-align: center;
         }
         canvas {
             border: 2px solid black;
             cursor: crosshair;
-            background-color: white; /* Ensure MNIST-style background */
+            background-color: white;
         }
         #clear-btn, #predict-btn {
             margin: 10px;
@@ -20,20 +37,60 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .about-box {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-left: 4px solid #000;
+            border-radius: 8px;
+            text-align: left;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .about-box h2 {
+            margin-top: 0;
+        }
+        .about-box a {
+            color: #0077cc;
+            text-decoration: none;
+        }
+        .about-box a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h1>Draw a Digit (0-9)</h1>
-    <canvas id="canvas" width="280" height="280"></canvas>
-    <br>
-    <button id="clear-btn">Clear</button>
-    <button id="predict-btn">Predict</button>
-    <h2>Prediction: <span id="result">None</span></h2>
+    <div class="main-container">
+        <!-- Drawing Area -->
+        <div class="left-panel">
+            <h1>🖌️ Draw a Digit (0-9)</h1>
+            <canvas id="canvas" width="280" height="280"></canvas>
+            <br>
+            <button id="clear-btn">Clear</button>
+            <button id="predict-btn">Predict</button>
+            <h2>🔍 Prediction: <span id="result">None</span></h2>
+        </div>
+
+        <!-- About Section -->
+        <div class="about-box">
+            <h2>📌 About</h2>
+            <p>Hey there! 👋 I'm <strong>Nidhi Bandihole Prasanna</strong>, an aspiring data scientist and machine learning enthusiast with a love for math, logic, and building things from the ground up. 🚀</p>
+
+            <p>This web application is powered by a neural network model built entirely from scratch using just <code>NumPy</code> and pure math — no high-level libraries like TensorFlow or PyTorch were used. ✨ It's designed to recognize handwritten digits (0–9), just like the classic MNIST dataset challenges.</p>
+
+            <p>🧠 This project has been an exciting journey into understanding the fundamentals of how machines learn and recognize patterns. The current model consists of 3 layers and achieves an accuracy of <strong>92.2%</strong> — not bad for a scratch-built neural net, right? 😄</p>
+
+            <p>🔧 I'm actively working on improving it by adding more layers, optimizing the learning process, and comparing its performance with industry-standard models. You can check out the full code, experiments, and results on my GitHub here:  
+            <a href="https://github.com/nidhibandihole/Neural-Network-from-scratch" target="_blank">🌐 GitHub Repository</a></p>
+
+            <p>✍️ Go ahead — draw a number in the box and click <strong>Predict</strong> to see what the model thinks you've written. It's a fun way to peek into how neural networks "see" your handwriting!</p>
+
+            <p>Thanks for visiting — and happy scribbling! 😊</p>
+        </div>
+    </div>
 
     <script>
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
-        ctx.fillStyle = "white";  // Ensure background is white
+        ctx.fillStyle = "white";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         let painting = false;
